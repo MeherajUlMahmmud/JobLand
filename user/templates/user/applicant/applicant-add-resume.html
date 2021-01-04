@@ -1,0 +1,96 @@
+{% extends "user/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+
+<!-- NAVBAR -->
+<header class="site-navbar mt-3">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="site-logo col-6"><a href="{% url 'home' %}">JobLand</a></div>
+
+
+            <nav class="mx-auto site-navigation">
+                <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
+                    <li class="d-lg-none"><a href="{% url 'applicant-profile' user.id %}" class="nav-link">Profile</a>
+                    </li>
+                    <li class="d-lg-none"><a href="{% url 'logout' %}" class="nav-link">Log Out</a></li>
+                </ul>
+            </nav>
+
+            <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
+                <div class="ml-auto">
+                    <a href="{% url 'applicant-profile' user.id %}"
+                       class="btn btn-primary border-width-2 d-none d-lg-inline-block">Hi
+                        {{ name }}</a>
+                    <a href="{% url 'logout' %}" class="btn btn-primary border-width-2 d-none d-lg-inline-block">
+                        <span class="mr-2 icon-lock_outline"></span>Log Out</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- HOME -->
+<section class="section-hero overlay inner-page bg-image" id="home-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h1 class="text-white font-weight-bold">Upload Your Resume</h1>
+                <div class="custom-breadcrumbs">
+                    <a href="{% url 'home' %}">Home</a> <span class="mx-2 slash">/</span>
+                    <a href="{% url 'applicant-profile' user.id %}">Profile</a> <span class="mx-2 slash">/</span>
+                    <span class="text-white"><strong>Upload Resume</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="site-section">
+    <div class="container">
+
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-8 mb-4 mb-lg-0">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <h2>Add Resume</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-lg-12">
+                <form class="p-4 p-md-5 border rounded" method="post" action="" enctype="multipart/form-data">
+                    <h3 class="text-black mb-5 border-bottom pb-2">Upload Resume</h3>
+
+                    {% csrf_token %}
+                    {{form.media}}
+
+                    <div class="form-group">
+                        <label>Upload Resume</label> <br>
+                        {{form.resume|add_class:"form-control"}}
+                        {{ form.resume.errors }}
+                    </div>
+
+                    <div class="col-12">
+                        <button class="btn btn-block btn-primary btn-md" type="submit">Upload Resume</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    const form_fields = document.getElementsByTagName("input")
+
+    form_fields[1].accept = "application/pdf"
+</script>
+
+{% endblock %}

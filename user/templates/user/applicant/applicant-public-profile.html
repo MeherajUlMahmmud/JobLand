@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+{% load static %}
+{% load widget_tweaks %}
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>{{user.name|upper}}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/favicon.png' %}"/>
+
+
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+
+
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet"
+          type="text/css"/>
+    <link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css"/>
+
+
+    <link href="{% static 'assets/applicant/css/styles.css' %}" rel="stylesheet"/>
+</head>
+
+<body id="page-top">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-success fixed-top" id="sideNav">
+    <a style="font-size: large; color: white" href="{% url 'home' %}"><i
+            class="fa fa-angle-double-left"></i><b> Home</b></a>
+    <a class="navbar-brand js-scroll-trigger" href="{% url 'applicant-edit-profile' %}">
+        {% if user.applicantprofilemodel.image %}
+        <span class="d-none d-lg-block">
+                <img class="img-fluid img-profile rounded-circle mx-auto mb-2"
+                     src="{{user.applicantprofilemodel.image.url}}" alt=""/>
+            </span>
+        {% else %}
+        <span class="d-none d-lg-block">
+                <img class="img-fluid img-profile rounded-circle mx-auto mb-2"
+                     src="{% static 'assets\images\placeholder.png' %}" alt=""/>
+            </span>
+        {% endif %}
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+            class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">Experience</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">Education</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">Skills</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#languages">Languages</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">Interests</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#references">References</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#awards">Awards</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#review">Review</a></li>
+
+        </ul>
+    </div>
+</nav>
+<!-- Page Content-->
+<div class="container-fluid p-0">
+    <!-- About-->
+    <section class="resume-section" id="about">
+        <div class="resume-section-content">
+            <h1 class="mb-0">
+                {{user.name}}
+            </h1>
+            {% if age %}
+            <h4>{{ age }} years old</h4>
+            {% endif %}
+            <div class="subheading mb-5">
+
+                <x-star-rating value="{{rate}}">
+
+                </x-star-rating>
+
+            </div>
+            <div id="confirm-box"></div>
+            <div class="subheading mb-5">
+                {% if user.applicantprofilemodel.address %}
+                {{user.applicantprofilemodel.address}}
+                <br/>
+                {% endif %}
+
+                {% if user.applicantprofilemodel.phone %}
+                {{user.applicantprofilemodel.phone}}
+                {% endif %}
+
+                {% if user.email %}
+                · <a href="mailto:{{user.email}}">{{user.email}}</a>
+                {% else %}
+                {% endif %}
+
+                {% if user.applicantprofilemodel.website %}
+                · <a href="https://{{user.applicantprofilemodel.website}}" target="_blank">Portfolio</a>
+                {% endif %}
+
+                <br/>
+
+                {% if user.applicantprofilemodel.resume %}
+                <a href="{{ resume_link|safe }}" target="_blank">View Resume</a>
+                {% endif %}
+
+                <br><br>
+                <hr class="m-0"/>
+                <br>
+
+                {% if user.applicantprofilemodel.bio %}
+                <h3>Objective</h3>
+                <p class="lead mb-5">{{user.applicantprofilemodel.bio|safe}}</p>
+                {% else %}
+                {% endif %}
+            </div>
+            <div class="social-icons">
+
+                {% if user.applicantprofilemodel.linkedin %}
+                <a class="social-icon" href="https://{{user.applicantprofilemodel.linkedin}}" target="_blank"><i
+                        class="fab fa-linkedin-in"></i></a>
+                {% endif %}
+
+                {% if user.applicantprofilemodel.github %}
+                <a class="social-icon" href="https://{{user.applicantprofilemodel.github}}" target="_blank"><i
+                        class="fab fa-github"></i></a>
+                {% endif %}
+
+                {% if user.applicantprofilemodel.twitter %}
+                <a class="social-icon" href="https://{{user.applicantprofilemodel.twitter}}" target="_blank"><i
+                        class="fab fa-twitter"></i></a>
+                {% endif %}
+
+                {% if user.applicantprofilemodel.facebook %}
+                <a class="social-icon" href="https://{{user.applicantprofilemodel.facebook}}" target="_blank"><i
+                        class="fab fa-facebook-f"></i></a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- Experience-->
+    <section class="resume-section" id="experience">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Experience</h2>
+
+
+            {% for experience in work_experience %}
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                <div class="flex-grow-1">
+                    <h3 class="mb-0">{{experience.job_title}}</h3>
+                    <div class="subheading mb-3">{{experience.company}}
+                        {% if experience.location %}, at 
+                        
+                        {{experience.location}}
+                        {% endif %}</div>
+
+                    {% if experience.left is None %}
+                    <p style="color: #9f4e2f">{{experience.started}} - Present</p>
+                    {% else %}
+                    <p style="color: #9f4e2f">{{experience.started}} - {{experience.left}}</p>
+                    {% endif %}
+
+                    <p>Bring to the table win-win survival strategies to ensure proactive domination. At the end of
+                        the day, going forward, a new normal that has evolved from generation X is on the runway heading
+                        towards a streamlined cloud solution. User generated content in real-time will have multiple
+                        touch points for off-shoring.</p>
+                </div>
+            </div>
+            {% endfor%}
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- Education-->
+    <section class="resume-section" id="education">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Education</h2>
+
+            {% for education in educations %}
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                <div class="flex-grow-1">
+                    <h3 class="mb-0">{{education.degree}}</h3>
+                    <div class="subheading mb-3">{{education.school}}</div>
+                    <p>{{education.started}} - {% if education.end %}
+                        {{education.end}}
+                        {% else %}
+                        Present
+                        {% endif %} </p>
+                    <div>{{education.department}}</div>
+                    <p>CGPA: {{education.cgpa}}</p>
+                </div>
+            </div>
+            {% endfor%}
+
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- Skills-->
+    <section class="resume-section" id="skills">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Skills</h2>
+
+            {% for skill in skill_set %}
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                <div class="flex-grow-1">
+                    <div>Skill: <b>{{skill.skill_title}}</b></div>
+                    <p>Proficiency Level: <b>{{skill.proficiency}}</b></p>
+                </div>
+            </div>
+            {% endfor%}
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- Languages-->
+    <section class="resume-section" id="languages">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Languages</h2>
+
+            {% for language in languages %}
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                <div class="flex-grow-1">
+                    <div>Language: <b>{{language.language}}</b></div>
+                    <p>Proficiency Level: <b>{{language.proficiency}}</b></p>
+                </div>
+            </div>
+            {% endfor%}
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- Interests-->
+    <section class="resume-section" id="interests">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Interests</h2>
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                {% if user.applicantprofilemodel.interest %}
+                <p>{{user.applicantprofilemodel.interest|safe}}</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- References-->
+    <section class="resume-section" id="references">
+        <div class="resume-section-content">
+            <h2 class="mb-5">References</h2>
+
+            {% for reference in references %}
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                <div class="flex-grow-1">
+                    <h3 class="mb-0">Name: {{reference.name}}</h3>
+                    <div class="subheading mb-3">{{reference.designation}} at {{reference.workplace}}</div>
+                    <p>{{reference.note}}</p>
+                </div>
+            </div>
+            {% endfor%}
+
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- Awards-->
+    <section class="resume-section" id="awards">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Awards & Certifications</h2>
+            <ul class="fa-ul mb-0">
+
+                {% for award in awards %}
+                <li>
+                    <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                    {{award.detail}}
+                </li>
+                {% endfor%}
+
+            </ul>
+        </div>
+    </section>
+    <hr class="m-0"/>
+
+    <!-- Review-->
+    <section class="resume-section" id="review">
+        <div class="resume-section-content">
+            <div class="resume-section-content">
+                <h3 class="mb-5">Rating and Reviews</h3>
+                <ul class="fa-ul mb-0">
+
+                    {% for r in rates %}
+                    <li>
+                        <x-star-rating value="{{r.rate}}">
+
+                        </x-star-rating>
+                        <p>{{r.rate}} star(s) by <b>{{r.company.user.name}}</b> and says, <em><u>{{r.comments}}</u></em></p>
+                    </li>
+                    <hr/>
+                    {% endfor%}
+
+                </ul>
+            </div>
+
+            {% if request.user.is_company %}
+
+            <form method="POST" action="" enctype="multipart/form-data" class="p-4 p-md-5 border rounded">
+                <h3 class="text-black mb-5 border-bottom pb-2">Your Review</h3>
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Rating</label> <br>
+                    <div class="subheading mb-5">
+
+                        <x-star-rating-form id="rating">
+
+                        </x-star-rating-form>
+
+                    </div>
+
+                </div>
+                {{rating_form.extra.as_hidden}}
+
+                <div class="form-group">
+                    <label>Your Comments</label>
+                    {{rating_form.comments}}
+                </div>
+
+                <div class="col-12">
+                    <button class="btn btn-block btn-primary " type="submit" onclick="getStar()">
+                        Rate {{user.name|upper}}
+                    </button>
+                </div>
+
+            </form>
+        </div>
+        {% endif %}
+    </section>
+
+    <hr class="m-0"/>
+</div>
+<!-- Bootstrap core JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+<!-- Third party plugin JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<!-- Core theme JS-->
+<script src="{% static 'assets/applicant/js/scripts.js' %}"></script>
+<script>
+    const form_fields = document.getElementsByTagName("input");
+
+    for (let i = 1; i < form_fields.length; i++) {
+        form_fields[i].className += ' form-control'
+    }
+    form_fields[1].setAttribute("id", "ratee");
+    form_fields[1].setAttribute("name", "extra");
+</script>
+
+</body>
+
+</html>

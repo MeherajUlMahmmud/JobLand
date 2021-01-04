@@ -1,0 +1,72 @@
+{% extends "job/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- NAVBAR -->
+{% include "./header.html" %}
+
+<!-- HOME -->
+<section class="section-hero overlay inner-page bg-image" id="home-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h1 class="text-white font-weight-bold">Delete Job Post</h1>
+                <div class="custom-breadcrumbs">
+                    <a href="{% url 'home' %}">Home</a> <span class="mx-2 slash">/</span>
+                    <a href="{% url 'job-profile' item.id %}">Job Profile</a> <span class="mx-2 slash">/</span>
+                    <span class="text-white"><strong>Delete Job</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="site-section">
+    <div class="container">
+
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-8 mb-4 mb-lg-0">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <h2>Delete Job</h2>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+            <div class="row mb-5">
+                <div class="col-lg-12">
+                    <form class="p-4 p-md-5 border rounded" method="post" action="{% url 'delete-job' item.id %}">
+                        <div class="form-group">
+                            <label>Tell about your experience with us..</label>
+                            <input class="form-feedback form-control" id="feedback" name="feedback"
+                                   placeholder=""
+                                   required type="text" >
+                        </div>
+
+                        <div class="form-group">
+                            <label>Have you found your perfect employee for this job by us?</label>
+                            <select class="form-jobFilled form-control" id="jobFilled" name="jobFilled" required>
+                                <option >Choose Option</option>
+                                <option >Yes</option>
+                                <option >No</option>
+                            </select>
+                        </div>
+                        <h3 class="text-black mb-5 border-bottom pb-2">Do you want to delete <b>{{ item.job_title }} ?</b></h3>
+
+                        {% csrf_token %}
+
+                        <div class="col-12">
+                            <a href="{% url 'job-profile' item.id  %}" class="btn btn-block btn-outline-danger btn-md" type="submit">Cancel</a>
+                            <button class="btn btn-block btn-danger btn-md" type="submit">Delete</button>
+                        </div>
+
+                    </form>
+                </div>
+                
+    </div>
+</section>
+
+{% endblock %}

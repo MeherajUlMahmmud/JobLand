@@ -1,0 +1,181 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- NAVBAR -->
+<header class="site-navbar mt-3">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="site-logo col-6"><a href="{% url 'home' %}">JobLand</a></div>
+
+            <nav class="mx-auto site-navigation">
+                <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
+                    <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+                    <li><a href="{% url 'about' %}" class="nav-link active">About</a></li>
+                    <li><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
+                    {% if user.is_authenticated %}
+                    <li class="d-lg-none"><a href="{% url 'logout' %}" class="nav-link">Log Out</a></li>
+                    {% else %}
+                    <li class="d-lg-none"><a href="{% url 'login' %}" class="nav-link">Log In</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+
+            <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
+                <div class="ml-auto">
+
+                    {% if user.is_authenticated %}
+
+                    {% if user.is_applicant %}
+                    <a href="{% url 'applicant-feed' %}" class="btn btn-primary border-width-2 d-none d-lg-inline-block">
+                        <span class="mr-2 icon-person_outline"></span>Hi {{ name }}</a>
+                    {% else %}
+                    <a href="{% url 'company-profile' user.id %}" class="btn btn-primary border-width-2 d-none d-lg-inline-block">
+                        <span class="mr-2 icon-person_outline"></span>{{ user.name }}</a>
+                    {% endif %}
+                    <a href="{% url 'logout' %}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
+                            class="mr-2 icon-lock_outline"></span>Log Out</a>
+                    {% else %}
+                    <a href="{% url 'login' %}"
+                       class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
+                            class="mr-2 icon-lock_outline"></span>Log In</a>
+                    {% endif %}
+
+                </div>
+                <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span
+                        class="icon-menu h3 m-0 p-0 mt-2"></span></a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- HOME -->
+<section class="section-hero overlay inner-page bg-image" id="home-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h1 class="text-white font-weight-bold">About Us</h1>
+                <div class="custom-breadcrumbs">
+                    <a href="{% url 'home' %}">Home</a> <span class="mx-2 slash">/</span>
+                    <span class="text-white"><strong>About Us</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-image overlay-primary fixed overlay" id="next">
+    <div class="container">
+        <div class="row mb-5 justify-content-center">
+            <div class="col-md-7 text-center">
+                <h2 class="section-title mb-2 text-white">JobBoard Site Stats</h2>
+            </div>
+        </div>
+        <div class="row pb-0 block__19738 section-counter justify-content-center">
+
+            <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+                <div class="d-flex align-items-center justify-content-center mb-2">
+                    <strong class="number" data-number="{{applicants_len}}">0</strong>
+                </div>
+                <span class="caption">Candidates</span>
+            </div>
+
+            <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+                <div class="d-flex align-items-center justify-content-center mb-2">
+                    <strong class="number" data-number="{{jobs_len}}">0</strong>
+                </div>
+                <span class="caption">Jobs Posted</span>
+            </div>
+
+            <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+                <div class="d-flex align-items-center justify-content-center mb-2">
+                    <strong class="number" data-number="{{filled_job_len}}">0</strong>
+                </div>
+                <span class="caption">Jobs Filled</span>
+            </div>
+
+            <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+                <div class="d-flex align-items-center justify-content-center mb-2">
+                    <strong class="number" data-number="{{companies_len}}">0</strong>
+                </div>
+                <span class="caption">Companies</span>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+<section class="site-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center" data-aos="fade">
+                <h2 class="section-title mb-3">Our Team</h2>
+            </div>
+        </div>
+
+        <div class="row align-items-center block__69944">
+
+            <div class="col-md-6">
+                <img src="{% static 'assets/images/sumonapic.jpg' %}"  alt="Image" class="img-fluid mb-4 rounded" >
+            </div>
+
+            <div class="col-md-6">
+                <h3>Sumona Yeasmin</h3>
+                <p class="text-muted">Student</p>
+                <p>Education: B.sc in Computer Science and Engineering (running),<br>
+                    East West University<br>
+                    Email: 2018-2-60-062@gmail.com
+
+                </p>
+                <div class="social mt-4">
+                    <a href="https://www.facebook.com/sumona.sumu.581/" target="_blank"><span class="icon-facebook"></span></a>
+                    <a href="https://github.com/Sumona062" target="_blank"><span class="icon-github"></span></a>
+                    <a href="https://www.instagram.com/sumona_sumu/" target="_blank"><span class="icon-instagram"></span></a>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <h3>Meheraj Ul Mahmmud</h3>
+                <p class="text-muted">Student</p>
+                <p>Education: B.sc in Computer Science and Engineering (running),<br>
+                    East West University<br>
+                    Email: 2018-2-60-067@gmail.com
+
+                </p>
+                <div class="social mt-4">
+                    <a href="https://www.facebook.com/meherajulmahmmud/" target="_blank"><span class="icon-facebook"></span></a>
+                    <a href="https://github.com/superior-prog" target="_blank"><span class="icon-github"></span></a>
+                    <a href="https://www.instagram.com/meheraj_007/" target="_blank"><span class="icon-instagram"></span></a>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <img src="{% static 'assets/images/meheraj.jpeg' %}" alt="Image" class="img-fluid mb-4 rounded">
+            </div>
+
+            <div class="col-md-6">
+                <img src="{% static 'assets/images/nazia.jpg' %}" alt="Image" class="img-fluid mb-4 rounded">
+            </div>
+
+            <div class="col-md-6">
+                <h3>Nazia Afrin</h3>
+                <p class="text-muted">Student</p>
+                <p>Education: B.sc in Computer Science and Engineering (running),<br>
+                    East West University<br>
+                    Email: 2018-2-60-023@gmail.com
+
+                </p>
+                <div class="social mt-4">
+                    <a href="https://www.facebook.com/nowshin021/" target="_blank"><span class="icon-facebook"></span></a>
+                    <a href="https://github.com/nowshin021" target="_blank"><span class="icon-github"></span></a>
+                    <a href="#"><span class="icon-instagram" target="_blank"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

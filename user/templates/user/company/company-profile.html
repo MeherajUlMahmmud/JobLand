@@ -1,0 +1,334 @@
+{% extends "user/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<!-- NAVBAR -->
+<header class="site-navbar mt-3">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="site-logo col-6">
+                <div class="site-logo col-6"><a href="{% url 'home' %}">JobLand</a></div>
+            </div>
+
+            <nav class="mx-auto site-navigation">
+                <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
+                    {%if request.user == user and request.user.is_company %}
+                    {% if user.companyprofilemodel.logo %}
+                    <li><a href="{% url 'home' %}">
+                            <img src="{{user.companyprofilemodel.logo.url}}" style="width:70px;height:50px;">
+                        </a></li>
+                    {% else %}
+                    <li><a href="{% url 'home' %}">{{user.name}}</a></li>
+                    {% endif %}
+                    {% else %}
+                    {% if user.companyprofilemodel.logo %}
+                    <li><a href=" ">
+                            <img src="{{user.companyprofilemodel.logo.url}}" style="width:70px;height:50px;">
+                        </a></li>
+                    {% else %}
+                    <li><a href="">{{user.name}}</a></li>
+                    {% endif %}
+                    {% endif %}
+
+                    {% if request.user == user and request.user.is_company %}
+                    <li class="d-lg-none">
+                        <a href="{% url 'post-job' %}">Post a Job</a>
+                    </li>
+
+                    <li class="d-lg-none">
+                        <a class="nav-link" href="{% url 'company-edit-profile' %}">Edit Details</a>
+                    </li>
+                    {% endif %}
+
+                    <li class="d-lg-none">
+                        <a class="nav-link" href="{% url 'logout' %}">Log Out </a>
+                    </li>
+
+                </ul>
+            </nav>
+
+            <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
+                <div class="ml-auto">
+                    {% if request.user == user and request.user.is_company %}
+                    <a class="btn btn-primary border-width-2 d-none d-lg-inline-block" href="{% url 'post-job' %}"><span
+                            class="mr-2 icon-add_circle"></span>Post Job</a>
+                    <a class="btn btn-primary border-width-2 d-none d-lg-inline-block"
+                        href="{% url 'company-edit-profile' %}"><span class="mr-2 icon-mode_edit"></span>Edit
+                        Details</a>
+                    {% endif %}
+                    <a class="btn btn-primary border-width-2 d-none d-lg-inline-block"
+                        href="{% url 'account-settings' request.user.id %}"><span
+                            class="mr-2 icon-settings"></span>Settings</a>
+                    <a class="btn btn-primary border-width-2 d-none d-lg-inline-block" href="{% url 'logout' %}"><span
+                            class="mr-2 icon-lock_outline"></span>Log Out</a>
+                </div>
+                <a class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3" href="#"><span
+                        class="icon-menu h3 m-0 p-0 mt-2"></span></a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- HOME -->
+
+<section class="home-section section-hero overlay bg-image"
+         id="home-section"
+         {% if user.companyprofilemodel.image %}
+         style="background-image: url('{{ user.companyprofilemodel.image.url }}');" style="background-color: #1b1e21;"
+         {% else %}
+         {% endif %} >
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-12">
+                <div class="mb-5 text-center">
+                    {% if request.user.is_company %}
+                    <h1 class="text-white font-weight-bold">Find Your Perfect Employee</h1>
+
+                    <form class="justify-content-centercenter" method="GET">
+                        <div class="row mb-5">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-9 mb-4 mb-lg-0 ">
+                            	
+                                <input class="form-control form-control-lg"
+                                       name="details" type="text" required
+                                       {% if employee_search %}
+                                       value="{{ employee_search }}"
+                                       {% else %}
+                                       value=""
+                                       {% endif %}>
+                            </div>
+
+
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                                <button class="btn btn-primary btn-lg btn-block text-white btn-search" type="submit">
+                                    <span class="icon-search icon mr-2"></span>Search Employee
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    {% else %}
+                    <h1 class="text-white font-weight-bold">It's Nice to Meet You</h1>
+                    {% endif %}
+
+
+                    {% if request.user.is_company and request.user.companyprofilemodel.website is None %}
+                    <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
+                        href="{% url 'company-edit-profile' %}"><i class="fa fa-plus"></i> Add Website</a>
+                    {% endif %}
+
+
+                    {% if request.user.is_applicant and user.companyprofilemodel.website %}
+                    <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger"
+                        href="https://{{user.companyprofilemodel.website}}" target="_blank"><span
+                            class="mr-2 icon-link"></span>VISIT US!!</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<br />
+<br />
+<br />
+
+<!-- Applicants-->
+{% if employee_list.count > 0 %}
+<section class="page-section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Applicants</h2>
+
+            <ul class="job-listings mb-5">
+                {% for employee in employee_list %}
+                <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
+                    <a href="{% url 'applicant-public-profile' employee.user.id %}"></a>
+                    <div class="job-listing-logo">
+                        {% if employee.user.applicantprofilemodel.image %}
+                        <img alt="Image" class="img-fluid" src=" {{ employee.user.applicantprofilemodel.image.url }}">
+                        {% else %}
+                        <img alt="{{ employee.user.name }} logo" class="img-fluid" src="">
+                        {% endif %}
+                    </div>
+
+                    <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                        <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                            <h2>{{employee.user.name}}</h2>
+                            <strong>{{employee.user.name}}</strong>
+                        </div>
+                        <!--                            <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">-->
+                        <!--                                <span class="icon-room"></span> {{job.location}}-->
+                        <!--                            </div>-->
+                        <!--                            <div class="job-listing-meta">-->
+                        <!--                                <span class="badge badge-danger">{{job.job_type}}</span>-->
+                        <!--                            </div>-->
+                    </div>
+
+                </li>
+                {% endfor%}
+
+            </ul>
+
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Posted Jobs-->
+<section class="page-section" id="jobs">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Posted Jobs</h2>
+            <div class="mb-5 text-center">
+
+                {% if request.user.is_company %}
+                <form method="GET">
+                    <div class="row mb-5">
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-9 mb-4 mb-lg-0 ">
+                            {{ job_search.form.job_title|add_class:"form-control form-control-lg" }}
+                        </div>
+
+
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                            <button class="btn btn-primary btn-lg btn-block text-white btn-search" type="submit">
+                                <span class="icon-search icon mr-2"></span>Search Job
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                {% endif %}
+
+            </div>
+
+            <ul class="job-listings mb-5">
+
+                {% for job in job_list %}
+                <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
+                    <a href="{% url 'job-profile' job.id %}"></a>
+                    <div class="job-listing-logo">
+                        {% if job.user.companyprofilemodel.logo %}
+                        <img alt="Image" class="img-fluid" src=" {{job.user.companyprofilemodel.logo.url}}">
+                        {% else %}
+                        <img alt="{{user.name}} logo" class="img-fluid" src="">
+                        {% endif %}
+                    </div>
+
+                    <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                        <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                            <h2>{{job.job_title}}</h2>
+                            <strong>{{job.user.name}}</strong>
+                        </div>
+                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                            <span class="icon-room"></span> {{job.location}}
+                        </div>
+                        <div class="job-listing-meta">
+                            <span class="badge badge-danger">{{job.job_type}}</span>
+                        </div>
+                    </div>
+
+                </li>
+                {% endfor%}
+
+            </ul>
+
+            {% if job_list.has_other_pages %}
+            <div class="row pagination-wrap">
+                <div class="col-md-6 text-center text-md-right">
+                    <div class="custom-pagination ml-auto">
+
+                        {% if job_list.has_previous %}
+                        <a href="?page={{ job_list.previous_page_number }}">&laquo;</a>
+                        {% endif %}
+                        {% if job_list.has_next %}
+                        <a href="?page={{ job_list.next_page_number }}">&raquo;</a>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</section>
+
+<br />
+<br />
+
+<!-- About-->
+<section class="page-section" id="about">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">About {{user.name}}</h2>
+
+            {% if user.companyprofilemodel.about %}
+            <p>{{user.companyprofilemodel.about|safe}}</p>
+            {% endif %}
+
+            <br><br>
+
+            {% if user.companyprofilemodel.location %}
+            <div>
+                <h5><label><b>Location: </b></label>
+                    {{user.companyprofilemodel.location}}</h5>
+            </div>
+            {% endif %}
+
+            {% if user.companyprofilemodel.start_date %}
+            <div>
+                <h5><label><b>Our Journey Started On: </b></label>
+                    {{user.companyprofilemodel.start_date}}</h5>
+            </div>
+            {% endif %}
+
+            <div>
+                <h5><label><b>Email Address: </b></label>
+                    <a href="mailto:{{user.email}}">{{user.email}}</a>
+                </h5>
+            </div>
+
+            {% if user.companyprofilemodel.phone %}
+            <div>
+                <h5><label><b>Contact No: </b></label>
+                    {{user.companyprofilemodel.phone}}</h5>
+            </div>
+            {% else %}
+            {% if request.user == user %}
+            <div>
+                <h5><label><b>Contact No: </b></label>
+                    <a href="{% url 'company-edit-profile' %}">+ Add Phone Number</a>
+                </h5>
+            </div>
+            {% endif %}
+            {% endif %}
+
+        </div>
+    </div>
+    </div>
+</section>
+<br />
+
+{% if user.companyprofilemodel.location %}
+<section class="map">
+    <div class="container">
+        <div class="text-center">
+            <iframe allowfullscreen="" aria-hidden="false" frameborder="0" height="450" src={{location_link|safe }}
+                style="border:0;" tabindex="0" width="100%"></iframe>
+        </div>
+    </div>
+</section>
+
+{% endif %}
+
+<br />
+<br />
+<script>
+    const form_fields = document.getElementsByTagName("input")
+
+    form_fields[0].placeholder = 'i.e. django developer, react developer'
+    form_fields[1].placeholder = 'i.e. developer'
+</script>
+
+{% endblock %}

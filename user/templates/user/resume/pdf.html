@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+
+    <title>Resume</title>
+
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font: 12px Helvetica, Sans-Serif;
+            line-height: 12px;
+            background: url(images/noise.jpg);
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        #page-wrap {
+            width: 800px;
+            margin: 40px auto 60px;
+        }
+
+        #pic {
+            height: 150px;
+            width: 130px;
+            float: right;
+        }
+
+        h1 {
+            font-weight: bold;
+        }
+
+        h2 span {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            font-style: italic;
+            font-family: Georgia, sans-serif;
+            font-weight: normal;
+        }
+
+
+        a {
+            color: #000000;
+            text-decoration: none;
+            border-bottom: 1px dotted #999;
+        }
+
+        a:hover {
+            border-bottom-style: solid;
+            color: black;
+        }
+
+        #objective {
+            width: 500px;
+            float: left;
+        }
+
+        #objective p {
+            font-family: Georgia, sans-serif;
+            font-style: italic;
+            color: #666;
+        }
+
+        dt {
+            font-style: italic;
+            font-weight: bold;
+            text-align: right;
+            padding: 0 26px 0 0;
+            width: 150px;
+            float: left;
+            height: 90px;
+            border-right: 1px solid #999;
+        }
+
+        dd {
+            width: 600px;
+            float: right;
+        }
+
+        dd.clear {
+            float: none;
+            margin: 0;
+            height: 5px;
+        }
+    </style>
+</head>
+
+<body style="background-color: #FFFFFF;">
+
+<div id="page-wrap">
+
+    <div class="vcard" id="contact-info">
+        {% if image_link %}
+        <img alt="" id="pic" src="{{ image_link|safe }}"/>
+        {% endif %}
+        <h1 class="fn" style="font-size: 20px;">{{ user.name }}</h1>
+        <p style="font-size: 12px;">
+            Cell: <span class="tel">{{ applicant.phone }}</span><br/>
+            Email: <a class="email" href="mailto:{{ user.email }}">{{ user.email }}</a>
+        </p>
+    </div>
+
+    {% if bio %}
+    <dd>
+        <p style="font-size: 12px;">{{ bio|safe }}</p>
+    </dd>
+    {% endif %}
+
+    <dd class="clear"></dd>
+
+    <div class="clear"></div>
+
+    <dl>
+        <dd class="clear"></dd>
+
+        {% if educations %}
+        <dt>Education</dt>
+        <dd>
+            {% for education in educations %}
+            <p>
+                <span style="font-size: 12px; font-weight: bold">{{ education.degree }}  </span>
+                <br/>
+                <span style="font-size: 10px;">
+                    <span style="font-weight: bold; margin-right: 2px;">{{ education.school }} </span><br/>
+
+                    <b>Subject:</b> {{ education.department }} <b>CGPA:</b> {{ education.cgpa }}
+                </span>
+            </p>
+            {% endfor %}
+        </dd>
+
+        {% endif %}
+
+        <dd class="clear"></dd>
+
+        {% if experiences %}
+        <dt>Experience</dt>
+        <dd>
+            {% for experience in experiences %}
+            <p>
+                {% if experience.company != "nazia" %}
+                <span style="font-size: 12px; font-weight: bold">{{ experience.company }}</span><br/>
+                {% endif %}
+
+                <span style="font-size: 10px;">
+                    <b>{{ experience.job_title }}</b> - <i>From <u>{{ experience.started }}</u> to
+                    {% if experience.left %}<u>{{ experience.left }}</u>{% else %}<u> Present</u>{% endif %}</i>
+                </span>
+                <br/>
+            </p>
+            <span style="font-size: 10px; color: grey;">{{ experience.job_desc|striptags|safe }}</span>
+            {% endfor %}
+        </dd>
+        {% endif %}
+
+        <dd class="clear"></dd>
+
+        {% if skills %}
+        <dt>Skills</dt>
+        <dd>
+            {% for skill in skills %}
+            <p>
+                <span style="font-size: 12px; font-weight: bold">{{ skill.skill_title }}</span><br/>
+                <span style="font-size: 10px;"> {{ skill.proficiency }}</span>
+            </p>
+            {% endfor %}
+        </dd>
+        {% endif %}
+
+        <dd class="clear"></dd>
+
+        {% if languages %}
+        <dt>Language</dt>
+        <dd>
+            {% for language in languages %}
+            <p>
+                <span style="font-size: 12px; font-weight: bold">{{ language.language }}</span><br/>
+                <span style="font-size: 10px;"> {{ language.proficiency }}</span>
+            </p>
+            {% endfor %}
+        </dd>
+        {% endif %}
+
+        <dd class="clear"></dd>
+
+        {% if awards %}
+        <dt>Awards</dt>
+        <dd>
+            <ul>
+                {% for award in awards %}
+                <li style="font-size: 12px;">{{ award.detail }}</li>
+                {% endfor %}
+            </ul>
+        </dd>
+        {% endif %}
+
+
+        <dd class="clear"></dd>
+
+        {% if interest %}
+        <dt>Interests</dt>
+        <dd>
+            <p style="font-size: 12px;">{{ interest|safe }}</p>
+        </dd>
+        {% endif %}
+
+        <dd class="clear"></dd>
+
+        {% if references %}
+        <dt>References</dt>
+        <dd>
+            {% for reference in references %}
+            <h2>{{ reference.name }}</h2>
+            <p style="font-size: 10px;">
+                <b>{{ reference.designation }}</b>
+            </p>
+            <p style="font-size: 10px;">{{ reference.note|safe }}</p>
+            {% endfor %}
+        </dd>
+        {% endif %}
+
+        <dd class="clear"></dd>
+    </dl>
+
+    <div class="clear"></div>
+
+</div>
+
+</body>
+
+</html>

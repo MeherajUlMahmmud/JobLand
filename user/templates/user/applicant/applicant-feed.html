@@ -1,0 +1,225 @@
+{% extends "user/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+
+<!-- NAVBAR -->
+<header class="site-navbar mt-3">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="site-logo col-6"><a href="{% url 'home' %}">JobLand</a></div>
+
+            <nav class="mx-auto site-navigation">
+                <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
+                    <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                    <li class="d-lg-none"><a href="{% url 'applicant-profile' user.id %}" class="nav-link">Profile</a>
+                    </li>
+                    <li class="d-lg-none"><a href="{% url 'account-settings' user.id %}" class="nav-link">Settings</a>
+                    </li>
+                    <li class="d-lg-none"><a href="{% url 'logout' %}" class="nav-link">Log Out</a></li>
+
+                </ul>
+            </nav>
+
+            <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
+                <div class="ml-auto">
+                    <a href="{% url 'applicant-profile' user.id %}"
+                       class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
+                            class="mr-2 icon-person_outline"></span>Hi {{ name }}</a>
+                    <a href="{% url 'account-settings' user.id %}"
+                       class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
+                            class="mr-2 icon-settings"></span>Settings</a>
+                    <a href="{% url 'logout' %}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
+                            class="mr-2 icon-lock_outline"></span>Log Out</a>
+
+
+                </div>
+                <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span
+                        class="icon-menu h3 m-0 p-0 mt-2"></span></a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- HOME -->
+<section class="home-section section-hero overlay bg-image" id="home-section">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-12">
+                <div class="mb-5 text-center">
+                    <h1 class="text-white font-weight-bold">The Easiest Way To Get Your Dream Job</h1>
+                </div>
+                <form method="GET" action="{% url 'search-result' %}">
+                    <div class="row mb-5">
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                            {{ myFilter.form.job_title|add_class:"form-control form-control-lg" }}
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                            {{ myFilter.form.location|add_class:"form-control form-control-lg" }}
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                            {{ myFilter.form.job_type|add_class:"form-control form-control-lg" }}
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block text-white btn-search">
+                                <span class="icon-search icon mr-2"></span>Search Job
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+<section class="site-section">
+    <div class="container">
+        <div class="row mb-5 justify-content-center">
+            <div class="col-md-7 text-center">
+                <h2 class="section-title mb-2">{{jobs_len}} Jobs Listed</h2>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Posted Jobs</h2>
+            <br/>
+
+            <ul class="job-listings">
+                {% for job in job_list %}
+                <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
+                    <a href="{% url 'job-profile' job.id %}"></a>
+                    <div class="job-listing-logo">
+                        {% if job.user.companyprofilemodel.logo %}
+                        <img src=" {{job.user.companyprofilemodel.logo.url}}" alt="Image" class="img-fluid">
+                        {% else %}
+                        <p>{{job.user.name}}</p>
+                        {% endif %}
+                    </div>
+                    <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                        <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                            <h2>{{job.job_title}}</h2>
+                            <strong>{{job.user.name}}</strong>
+                        </div>
+                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                            <span class="icon-room"></span> {{job.location}}
+                        </div>
+                        <div class="job-listing-meta">
+                            {% if job.job_type == 'Full Time' %}
+                            <span class="badge badge-success">{{job.job_type}}</span>
+                            {% elif job.job_type == 'Part Time' %}
+                            <span class="badge badge-danger">{{job.job_type}}</span>
+                            {% else %}
+                            <span class="badge badge-info">{{job.job_type}}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </li>
+                {% endfor%}
+            </ul>
+        </div>
+
+        {% if jobs.has_other_pages %}
+        <div class="row pagination-wrap">
+<!--            <div class="col-md-6 text-center text-md-left mb-4 mb-md-0">-->
+<!--                <span>Showing 1-5 Of {{jobs_len}} Jobs</span>-->
+<!--            </div>-->
+            <div class="col-md-6 text-center text-md-right">
+                <div class="custom-pagination ml-auto">
+                    <ul>
+                        {% if jobs.has_previous %}
+                        <li><a href="?page={{ jobs.previous_page_number }}">&laquo;</a></li>
+                        {% endif %}
+
+
+<!--                        {% for i in jobs.paginator.page_range %}-->
+<!--                        {% if jobs.number == i %}-->
+<!--                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>-->
+<!--                        {% else %}-->
+<!--                        <li><a href="?page={{ i }}">{{ i }}</a></li>-->
+<!--                        {% endif %}-->
+<!--                        {% endfor %}-->
+
+
+                        {% if jobs.has_next %}
+                        <li><a href="?page={{ jobs.next_page_number }}">&raquo;</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+
+<section class="site-section" id="recommendation">
+    <div class="container">
+
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">recommended Jobs</h2>
+            <br/>
+
+            <ul class="job-listings mb-5">
+                {% if not recommended_jobs %}
+
+                <p>Could not recommend you any job.</p>
+                <p>Please try adding <a href="{% url 'add-preferred-job' %}">Preferred Job Title</a> or <a
+                        href="{% url 'add-skill' %}">Skill-Set</a></p>
+
+                {% else %}
+                {% for job in recommended_jobs %}
+
+                <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
+                    <a href="{% url 'job-profile' job.id %}"></a>
+
+                    <div class="job-listing-logo">
+                        {% if job.user.companyprofilemodel.logo %}
+                        <img src=" {{job.user.companyprofilemodel.logo.url}}" alt="Image" class="img-fluid">
+                        {% else %}
+                        <p>{{ job.user.name }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                        <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                            <h2>{{ job.job_title }}</h2>
+                            <strong>{{ job.user.name }}</strong>
+                        </div>
+                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                            <span class="icon-room"></span> {{ job.location }}
+                        </div>
+                        <div class="job-listing-meta">
+                            <span class="badge badge-danger">{{ job.job_type }}</span>
+                        </div>
+
+                    </div>
+
+                </li>
+
+                {% endfor %}
+                {% endif %}
+
+            </ul>
+        </div>
+    </div>
+</section>
+
+<script>
+    const form_fields = document.getElementsByTagName("input")
+
+    form_fields[0].placeholder = 'Job Title'
+    form_fields[1].placeholder = 'Location'
+</script>
+
+<br/>
+
+{% endblock %}

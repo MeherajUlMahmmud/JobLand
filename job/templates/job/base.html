@@ -1,0 +1,64 @@
+<!doctype html>
+
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <title>JobLand</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta name="author" content="Free-Template.co"/>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/favicon.png' %}"/>
+
+
+    <link rel="stylesheet" href="{% static 'assets/css/custom-bs.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/jquery.fancybox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap-select.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/icomoon/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/line-icons/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/quill.snow.css' %}">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+</head>
+
+<body id="top">
+
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+<div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+            <div class="site-mobile-menu-close mt-3">
+                <span class="icon-close2 js-menu-toggle"></span>
+            </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+    </div> <!-- .site-mobile-menu -->
+
+    {% block content %}
+
+
+    {% endblock %}
+
+    {% include "./footer.html" %}
+
+</div>
+
+<!-- SCRIPTS -->
+{% include "./javascript.html" %}
+
+</body>
+
+</html>

@@ -1,0 +1,145 @@
+{% extends "job/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<!-- NAVBAR -->
+<header class="site-navbar mt-3">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="site-logo col-6"><a href="{% url 'home' %}">JobLand</a></div>
+
+
+            <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
+                <div class="ml-auto">
+                    <a href="{% url 'company-profile' user.id %}"
+                       class="btn btn-primary border-width-2 d-lg-inline-block">
+                        <span class="mr-2 icon-person_outline"></span>{{request.user.name}}</a>
+                    <a href="{% url 'company-edit-profile' %}"
+                       class="btn btn-primary border-width-2 d-none d-lg-inline-block">
+                        <span class="mr-2 icon-mode_edit"></span>Edit Details</a>
+                    <a href="{% url 'logout' %}" class="btn btn-primary border-width-2 d-none d-lg-inline-block">
+                        <span class="mr-2 icon-lock_outline"></span>Log Out</a>
+                </div>
+                <a href="#" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3">
+                    <span class="icon-menu h3 m-0 p-0 mt-2"></span></a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- HOME -->
+<section class="section-hero overlay inner-page bg-image" id="home-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h1 class="text-white font-weight-bold">{{ task }} Job Info</h1>
+                <div class="custom-breadcrumbs">
+                    <a href="{% url 'home' %}">Home</a> <span class="mx-2 slash">/</span>
+                    <span class="text-white"><strong>{{ task }} Job</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="site-section">
+    <div class="container">
+
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-8 mb-4 mb-lg-0">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <h2>{{ task }} Details</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-lg-12">
+                <form method="POST" action="" enctype="multipart/form-data" class="p-4 p-md-5 border rounded">
+                    <h3 class="text-black mb-5 border-bottom pb-2">Job Form</h3>
+                    {% csrf_token %}
+                    {{form.media}}
+
+                    {{form.is_active.as_hidden}}
+
+                    <div class="form-group">
+                        <label>Upload Featured Image</label> <br>
+                        {{ form.image|add_class:"form-control" }}
+                    </div>
+
+                    <div class="form-group">
+                        <label>Job Title</label>
+                        {{ form.job_title|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        {{ form.location|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group">
+                        <label>Job Type</label>
+                        {{ form.job_type|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group">
+                        <label>Job Description</label> <br>
+                        {{ form.job_desc|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group">
+                        <label>Vacancy</label>
+                        {{ form.vacancy|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group">
+                        <label>Experience Required (minimum in months)</label>
+                        {{ form.experience|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group">
+                        <label>Salary</label>
+                        {{ form.salary|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group">
+                        <label>Requirements</label> <br>
+                        {{ form.requirements|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group">
+                        <label>Responsibilities</label> <br>
+                        {{ form.responsibilities|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group">
+                        <label>Application Deadline</label>
+                        {{ form.deadline|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        {{ form.gender|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group">
+                        <label>Additional Note</label> <br>
+                        {{ form.additional_note|add_class:"form-control" }}
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-block btn-primary " type="submit">{{ task }} Job</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const form_fields = document.getElementsByTagName("input")
+
+    form_fields[3].placeholder = 'Job Title'
+    form_fields[4].placeholder = 'Location'
+
+    form_fields[5].placeholder = 'Vacancy'
+    form_fields[6].placeholder = 'Minimum required experience(in month)'
+    form_fields[7].placeholder = 'Salary'
+</script>
+
+{% endblock %}

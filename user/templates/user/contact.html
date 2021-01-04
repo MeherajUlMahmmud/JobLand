@@ -1,0 +1,139 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<!-- NAVBAR -->
+<header class="site-navbar mt-3">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="site-logo col-6"><a href="{% url 'home' %}">JobLand</a></div>
+
+            <nav class="mx-auto site-navigation">
+                <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
+                    <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'contact' %}" class="active">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
+                <div class="ml-auto">
+
+                    {% if user.is_authenticated %}
+
+                    {% if user.is_applicant %}
+                    <a href="{% url 'applicant-profile' user.id %}"
+                       class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
+                            class="mr-2 icon-person_outline"></span>Hi {{request.user.name}}</a>
+                    {% endif %}
+                    <a href="{% url 'logout' %}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
+                            class="mr-2 icon-lock_outline"></span>Log Out</a>
+                    {% else %}
+                    <a href="{% url 'login' %}"
+                       class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
+                            class="mr-2 icon-lock_outline"></span>Log In</a>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- HOME -->
+<section class="section-hero overlay inner-page bg-image" id="home-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h1 class="text-white font-weight-bold">Contact Us</h1>
+                <div class="custom-breadcrumbs">
+                    <a href="{% url 'home' %}">Home</a> <span class="mx-2 slash">/</span>
+                    <span class="text-white"><strong>Contact Us</strong></span>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="site-section" id="next-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <form action="{% url 'contact' %}" method="post">
+                    {% csrf_token %}
+                    <div class="row form-group">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <label class="text-black">First Name</label>
+                            <input type="text" name="fname" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="text-black">Last Name</label>
+                            <input type="text" name="lname" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+
+                        <div class="col-md-12">
+                            <label class="text-black">Email</label>
+                            <input type="email" name="email" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+
+                        <div class="col-md-12">
+                            <label class="text-black">Subject</label>
+                            <input type="subject" name="subject" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label class="text-black">Message</label>
+                            <textarea name="message" name="message" cols="30" rows="7" class="form-control"
+                                      placeholder="Write your notes or questions here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <button class="btn btn-block btn-primary btn-md" type="submit">Send</button>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="col-lg-5 ml-auto">
+                <div class="p-4 mb-3 bg-white">
+
+                    <p class="mb-3 font-weight-bold">Phone</p>
+                    <p class="mb-0">+8801992616930</p>
+                    <p class="mb-0">+8801814325624</p>
+                    <p class="mb-0">+8801746532461</p>
+                    <p class="mb-5"></p>
+
+                    <p class="mb-3 font-weight-bold">Email Address</p>
+                    <p class="mb-0"><a href="mailto:officialjobland777@gmail.com">officialjobland777@gmail.com</a></p>
+                    <p class="mb-0"><a href="mailto:2018-2-60-062@std.ewubd.edu">2018-2-60-062@std.ewubd.edu</a></p>
+                    <p class="mb-0"><a href="mailto:2018-2-60-067@std.ewubd.edu">2018-2-60-067@std.ewubd.edu</a></p>
+                    <p class="mb-0"><a href="mailto:2018-2-60-023@std.ewubd.edu">2018-2-60-023@std.ewubd.edu</a></p>
+
+
+                </div>
+            </div>
+        </div>
+        {% for message in messages %}
+        <p id="messages">{{message}}</p>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

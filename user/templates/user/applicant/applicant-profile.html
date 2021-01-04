@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <title>{{user.name}}</title>
+    <link href="{% static 'assets/favicon.png' %}" rel="shortcut icon" type="image/x-icon"/>
+
+
+    <script crossorigin="anonymous" src="https://use.fontawesome.com/releases/v5.13.0/js/all.js"></script>
+
+
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet"
+          type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css"/>
+
+
+    <link href="{% static 'assets/applicant/css/styles.css' %}" rel="stylesheet"/>
+</head>
+
+<body id="page-top">
+
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-success fixed-top" id="sideNav">
+    <a href="{% url 'applicant-feed' %}" style="font-size: large; color: white"><i
+            class="fa fa-angle-double-left"></i><b> Go to feed</b></a>
+    <a class="navbar-brand js-scroll-trigger" href="{% url 'applicant-edit-profile' %}">
+        {% if user.applicantprofilemodel.image %}
+        <span class="d-none d-lg-block">
+            <img alt=""
+                 class="img-fluid img-profile rounded-circle mx-auto mb-2"
+                 src="{{request.user.applicantprofilemodel.image.url}}"/>
+        </span>
+        {% else %}
+        <span class="d-none d-lg-block">
+            <img alt=""
+                 class="img-fluid img-profile rounded-circle mx-auto mb-2"
+                 src="{% static 'assets\images\placeholder.png' %}"/>
+        </span>
+        {% endif %}
+    </a>
+    <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+            class="navbar-toggler"
+            data-target="#navbarSupportedContent" data-toggle="collapse" type="button"><span
+            class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+
+
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">Experience</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">Education</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">Skills</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#languages">Languages</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">Interests</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#references">References</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#awards">Awards</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#Preferred_Jobs">Preferred Jobs</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#companyList">Applied Jobs</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'applicant-edit-profile' %}">Edit
+                Profile</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{% url 'logout' %}">Log Out</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Page Content-->
+
+
+<div class="container-fluid p-0">
+    <!-- About-->
+    <section class="resume-section" id="about">
+        <div class="resume-section-content">
+
+            <a href="{% url 'applicant-edit-profile' %}">
+                {% if user.applicantprofilemodel.image %}
+                <span class="d-lg-none">
+                    <img alt=""
+                         class="img-fluid img-profile rounded-circle mx-auto mb-2"
+                         src="{{request.user.applicantprofilemodel.image.url}}"/>
+                </span>
+                {% else %}
+                <span class="d-lg-none">
+                    <img alt=""
+                         class="img-fluid img-profile rounded-circle mx-auto mb-2"
+                         src="{% static 'assets\images\placeholder.png' %}"/>
+                 </span>
+                {% endif %}
+            </a>
+
+
+            <h1 class="mb-0">
+                {{request.user.name}}
+            </h1>
+            {% if age is not None %}
+            <h4>{{ age }} years old</h4>
+            {% endif %}
+            <div class="subheading mb-5">
+                {% if user.applicantprofilemodel.address %}
+                {{user.applicantprofilemodel.address}}
+                {% else %}
+                <a href="{% url 'applicant-edit-profile' %}">+ Add Address</a>
+                {% endif %}
+
+                <br>
+
+                {% if user.applicantprofilemodel.phone %}
+                {{user.applicantprofilemodel.phone}} ·
+                {% else %}
+                <a href="{% url 'applicant-edit-profile' %}">+ Add Phone Number ·</a>
+                {% endif %}
+
+                {% if user.email %}
+                <a href="mailto:{{request.user.email}}">{{user.email}}</a> ·
+                {% else %}
+                <a href="{% url 'applicant-edit-profile' %}">+ Add Email Address
+                    ·</a>
+                {% endif %}
+
+                {% if user.applicantprofilemodel.website %}
+                <a href="https://{{user.applicantprofilemodel.website}}" target="_blank">Portfolio</a> ·
+                {% else %}
+                <a href="{% url 'applicant-edit-profile' %}">+ Add Website ·</a>
+                {% endif %}
+                <a href="{% url 'applicant-public-profile' user.id %}"> Public Profile ·</a>
+
+                <br/>
+
+                {% if user.applicantprofilemodel.resume %}
+                <a href="{{ resume_link|safe }}" target="_blank">View Resume ·</a>
+                {% else %}
+                <a href="{% url 'applicant-add-resume' %}">+ Upload Resume ·</a>
+                {% endif %}
+                <a href="{% url 'pdf-view' %}" target="_blank">Build Your Resume</a>
+
+                <br><br>
+                <hr class="m-0"/>
+                <br>
+                
+
+                {% if user.applicantprofilemodel.bio %}
+                <h3>Objective</h3>
+                {{user.applicantprofilemodel.bio|safe}}
+                {% else %}
+                <a href="{% url 'applicant-edit-profile' %}">+ Add Objective</a>
+                {% endif %}
+
+            </div>
+            <div class="social-icons">
+
+                {% if user.applicantprofilemodel.linkedin %}
+                <a class="social-icon" href="https://{{user.applicantprofilemodel.linkedin}}" target="_blank"><i
+                        class="fab fa-linkedin-in"></i></a>
+                {% else %}
+                <a class="social-icon" href="{% url 'applicant-add-social' %}"><i class="fa fa-plus"></i></a>
+                {% endif %}
+
+                {% if user.applicantprofilemodel.github %}
+                <a class="social-icon" href="https://{{user.applicantprofilemodel.github}}" target="_blank"><i
+                        class="fab fa-github"></i></a>
+                {% else %}
+                <a class="social-icon" href="{% url 'applicant-add-social' %}"><i class="fa fa-plus"></i></a>
+                {% endif %}
+
+                {% if user.applicantprofilemodel.twitter %}
+                <a class="social-icon" href="https://{{user.applicantprofilemodel.twitter}}" target="_blank"><i
+                        class="fab fa-twitter"></i></a>
+                {% else %}
+                <a class="social-icon" href="{% url 'applicant-add-social' %}"><i class="fa fa-plus"></i></a>
+                {% endif %}
+
+                {% if user.applicantprofilemodel.facebook %}
+                <a class="social-icon" href="https://{{user.applicantprofilemodel.facebook}}" target="_blank"><i
+                        class="fab fa-facebook-f"></i></a>
+                {% else %}
+                <a class="social-icon" href="{% url 'applicant-add-social' %}"><i class="fa fa-plus"></i></a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- Experience-->
+    <section class="resume-section" id="experience">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Experience</h2>
+
+
+            {% for experience in work_experience %}
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                <div class="flex-grow-1">
+                    <h3 class="mb-0">{{experience.job_title}}</h3>
+                    <div class="subheading mb-3">{{experience.company}}, at {{experience.location}}</div>
+
+                    {% if experience.left is None %}
+                    <p style="color: #9f4e2f">{{experience.started}} - Present</p>
+                    {% else %}
+                    <p style="color: #9f4e2f">{{experience.started}} - {{experience.left}}</p>
+                    {% endif %}
+
+                    {{experience.job_desc|safe}}
+                </div>
+                <div class="flex-shrink-0">
+                    <a class="btn btn-outline-dark" href="{% url 'edit-experience' experience.id %}">
+                        <i class="fa fa-edit"></i> Edit</a>
+                    <a class="btn btn-outline-danger" href="{% url 'delete-experience' experience.id %}">
+                        <i class="fa fa-trash"></i> Delete</a>
+                </div>
+            </div>
+            {% endfor%}
+
+            <br>
+            <div class="subheading">
+                <a href="{% url 'add-experience' %}"><i class="fa fa-plus"></i> Add New Experience</a>
+            </div>
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- Education-->
+    <section class="resume-section" id="education">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Education</h2>
+
+            {% for education in educations %}
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                <div class="flex-grow-1">
+                    <h3 class="mb-0">{{education.degree}}</h3>
+                    <div class="subheading mb-3">{{education.school}}</div>
+                    <p>{{education.started}} - {% if education.end %}
+                        {{education.end}}
+                        {% else %}
+                        Present
+                        {% endif %} </p>
+                    <div>{{education.department}}</div>
+                    <p>CGPA: {{education.cgpa}}</p>
+                </div>
+
+                <div class="flex-shrink-0">
+                    <a class="btn btn-outline-dark" href="{% url 'edit-education' education.id %}">
+                        <i class="fa fa-edit"></i> Edit</a>
+                    <a class="btn btn-outline-danger" href="{% url 'delete-education' education.id %}">
+                        <i class="fa fa-trash"></i> Delete</a>
+                </div>
+            </div>
+            {% endfor%}
+            <br>
+            <div class="subheading">
+                <a href="{% url 'add-education' %}">
+                    <i class="fa fa-plus"></i> Add New Education</a>
+            </div>
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- Skills-->
+    <section class="resume-section" id="skills">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Skills</h2>
+
+            {% for skill in skill_set %}
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                <div class="flex-grow-1">
+                    <div>Skill: <b>{{skill.skill_title}}</b></div>
+                    <p>Proficiency Level: <b>{{skill.proficiency}}</b></p>
+                </div>
+                <div class="flex-shrink-0">
+                    <a class="btn btn-outline-dark" href="{% url 'edit-skill' skill.id %}"><i class="fa fa-edit"></i>
+                        Edit</a>
+                    <a class="btn btn-outline-danger" href="{% url 'delete-skill' skill.id %}"><i
+                            class="fa fa-trash"></i>
+                        Delete</a>
+                </div>
+            </div>
+            {% endfor%}
+
+            <br>
+            <div class="subheading mb-5">
+                <a href="{% url 'add-skill' %}"><i class="fa fa-plus"></i> Add New Skill</a>
+            </div>
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- Languages-->
+    <section class="resume-section" id="languages">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Languages</h2>
+
+            {% for language in languages %}
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                <div class="flex-grow-1">
+                    <div>Language: <b>{{language.language}}</b></div>
+                    <p>Proficiency Level: <b>{{language.proficiency}}</b></p>
+                </div>
+                <div class="flex-shrink-0">
+                    <a class="btn btn-outline-dark" href="{% url 'edit-language' language.id %}"><i class="fa fa-edit"></i>
+                        Edit</a>
+                    <a class="btn btn-outline-danger" href="{% url 'delete-language' language.id %}"><i
+                            class="fa fa-trash"></i>
+                        Delete</a>
+                </div>
+            </div>
+            {% endfor%}
+
+            <br>
+            <div class="subheading mb-5">
+                <a href="{% url 'add-language' %}"><i class="fa fa-plus"></i> Add New Language</a>
+            </div>
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- Interests-->
+    <section class="resume-section" id="interests">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Interests</h2>
+            <div class="d-flex flex-column flex-md-row justify-content-between">
+                {% if user.applicantprofilemodel.interest %}
+                {{user.applicantprofilemodel.interest|safe}}
+                <div class="flex-shrink-0">
+                    <a class="btn btn-outline-dark" href="{% url 'applicant-edit-profile' %}">
+                        <i class="fa fa-edit"></i>Edit</a>
+                </div>
+                {% else %}
+                <div class="subheading">
+                    <a href="{% url 'applicant-edit-profile' %}"><i class="fa fa-plus"></i> Add Interest</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- References-->
+    <section class="resume-section" id="references">
+        <div class="resume-section-content">
+            <h2 class="mb-5">References</h2>
+
+            {% for reference in references %}
+            <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                <div class="flex-grow-1">
+                    <h3 class="mb-0">Name: {{reference.name}}</h3>
+                    <div class="subheading mb-3">{{reference.designation}} at {{reference.workplace}}</div>
+                    <p>{{reference.note}}</p>
+                </div>
+                <div class="flex-shrink-0">
+                    <a class="text-primary" href="{% url 'edit-reference' reference.id %}">
+                        <i class="fa fa-edit"></i> Edit</a>
+                    <a class="text-primary" href="{% url 'delete-reference' reference.id %}">
+                        <i class="fa fa-trash"></i> Delete</a>
+                </div>
+            </div>
+            {% endfor%}
+
+            <br>
+            <div class="subheading mb-5">
+                <a href="{% url 'add-reference' %}">
+                    <i class="fa fa-plus"></i> Add New Reference</a>
+            </div>
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- Awards-->
+    <section class="resume-section" id="awards">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Awards & Certifications</h2>
+            <ul class="fa-ul mb-0">
+
+                {% for award in awards %}
+                <li>
+                    <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
+                    {{award.detail}}
+                </li>
+                <div class="flex-shrink-0">
+                    <a class="text-primary" href="{% url 'edit-award' award.id %}"><i class="fa fa-edit"></i> Edit</a>
+                    <a class="text-primary" href="{% url 'delete-award' award.id %}"><i class="fa fa-trash"></i>
+                        Delete</a>
+                </div>
+                {% endfor%}
+
+            </ul>
+            <br>
+            <div class="subheading mb-5">
+                <a href="{% url 'add-award' %}"><i class="fa fa-plus"></i> Add New Award or Certificate</a>
+            </div>
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!-- Prefferd jobs-->
+    <section class="resume-section" id="Preferred_Jobs">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Preffered Jobs</h2>
+            <ul class="fa-ul mb-0">
+
+                {% for preferred_job in preferred_jobs %}
+                <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                    <div class="flex-grow-1">
+                        <li type="1">
+                            {{preferred_job.details}}
+                        </li>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a class="btn btn-outline-dark" href="{% url 'edit-preferred-job' preferred_job.id %}">
+                            <i class="fa fa-edit"></i> Edit</a>
+                        <a class="btn btn-outline-danger" href="{% url 'delete-preferred-jobs' preferred_job.id %}">
+                            <i class="fa fa-trash"></i> Delete</a>
+                    </div>
+                </div>
+                {% endfor%}
+
+            </ul>
+            <br>
+            <div class="subheading mb-5">
+                <a href="{% url 'add-preferred-job' %}"><i class="fa fa-plus"></i> Add New Preffered job</a>
+            </div>
+        </div>
+    </section>
+    <hr class="m-0"/>
+
+    <!-- Applied Jobs-->
+    <section class="resume-section" id="companyList">
+        <div class="resume-section-content">
+            <h2 class="mb-5">Applied Jobs</h2>
+            <ul class="fa-ul mb-0">
+                {% for job in applied_jobs %}
+                <li>
+                    <span class="fa-li"><i class="fas fa-forward text-warning"></i></span>
+                    <p>
+                        <a href="{% url 'job-profile' job.job.id %}">
+                            <b>{{ job.job.job_title }}</b>
+                        </a>
+                        Position at
+                        <a href="{% url 'company-profile' job.job.user.id %}">
+                            {{ job.job.user.name }}
+                        </a>
+                        ({{ job.percentage }}% matched with requirements)
+                    </p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+    <hr class="m-0"/>
+    <!--    Reviews-->
+
+</div>
+<!-- Bootstrap core JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+<!-- Third party plugin JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<!-- Core theme JS-->
+<script src="{% static 'assets/applicant/js/scripts.js' %}"></script>
+</body>
+</html>
