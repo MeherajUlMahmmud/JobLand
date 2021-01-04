@@ -1,5 +1,18 @@
 # JobLand
 
+##### Home Page
+![logo](/ss/home.png?raw=true "Logo")
+
+##### Login Page
+![logo](/ss/home.png?raw=true "Logo")
+
+##### Applicant Sign Up Page
+![logo](/ss/home.png?raw=true "Logo")
+
+##### Company Sign Up Page
+![logo](/ss/home.png?raw=true "Logo")
+
+
 ## How to run:
 ### 1. Clone project
 > Make sure you have already installed python3 and git.
