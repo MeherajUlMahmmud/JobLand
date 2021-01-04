@@ -1,13 +1,6 @@
 # JobLand - A Job Searching Platform
 
 ## Features
-#### For Applicants and Companies both
-<ul>
-    <li>View Blog</li>
-    <li>Post blog</li>
-    <li>Make Comments</li>
-</ul>
-
 #### For Applicants
 <ul>
     <li>Searching Job</li>
