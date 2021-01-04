@@ -20,14 +20,9 @@ $ .\ENV\Scripts\activate
 $ cd jobland
 ```
 
-### 5. Install these libraries in your environment
+### 5. Install this command in your environment
 ```
-$ pip install django
-$ pip install pillow
-$ pip install django-ckeditor
-$ pip install django-filter
-$ pip install django-widget-tweaks
-$ pip install xhtml2pdf
+$ pip install -r requirements.txt
 ```
 ### 6. And start your server
 ```
