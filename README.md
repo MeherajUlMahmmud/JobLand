@@ -1,4 +1,30 @@
-# JobLand
+# JobLand - A Job Searching Platform
+
+## Features
+#### For Applicants and Companies both
+<ul>
+    <li>View Blog</li>
+    <li>Post blog</li>
+    <li>Make Comments</li>
+</ul>
+
+#### For Applicants
+<ul>
+    <li>Searching Job</li>
+    <li>Applying to Jobs</li>
+    <li>Cancel Application</li>
+    <li>Personal Profile</li>
+    <li>Adding Information like Work Experience, Education, Skills etc.</li>
+    <li>Public Profile</li>
+</ul>
+
+#### For Companies
+<ul>
+    <li>Searching Applicant</li>
+    <li>Searching Job within the Company's own jobs</li>
+    <li>Rating Applicants</li>
+</ul>
+
 
 ##### Home Page
 ![logo](/ss/home.png?raw=true "Logo")
