@@ -58,7 +58,7 @@
                     <div class="row form-group">
                         <div class="col-md-12 mb-3 mb-md-0">
                             <label class="text-black">Email Address</label>
-                            {{ form.email|add_class:"form-control" }}
+                            {{ form.email|add_class:"form-control"|attr:"autofocus" }}
                             {{ form.email.errors }}
                             <p>{{ form.email.help_text|safe }}</p>
                         </div>
