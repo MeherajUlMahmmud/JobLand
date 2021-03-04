@@ -8,7 +8,7 @@
     <li>Cancel Application</li>
     <li>Personal Profile</li>
     <li>Adding Information like Work Experience, Education, Skills etc.</li>
-    <li>Public Profile</li>
+    <li>Public Profile (Could be used as Portfolio)</li>
 </ul>
 
 #### For Companies
@@ -45,18 +45,13 @@ $ py -m venv venv
 ```
 ### 3. Start the environment
 ```
-$ .\ENV\Scripts\activate
+$ .\venv\Scripts\activate
 ```
-### 4. Go into project directory
-```
-$ cd jobland
-```
-
-### 5. Install this command in your environment
+### 4. Install this command in your environment
 ```
 $ pip install -r requirements.txt
 ```
-### 6. And start your server
+### 5. And start your server
 ```
 $ py manage.py runserver
 ```
