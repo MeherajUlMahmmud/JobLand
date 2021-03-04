@@ -448,7 +448,7 @@ def applicant_add_social(request):
             form.save()
             return redirect('applicant-profile', request.user.id)
         else:
-            return redirect('applicant-edit-social')
+            return redirect('applicant-add-social')
 
     name = extractFirstName(request.user.name)
 
@@ -457,6 +457,28 @@ def applicant_add_social(request):
         'form': form,
     }
     return render(request, 'user/applicant/applicant-add-social.html', context)
+
+
+@login_required(login_url='login')
+@show_to_applicant(allowed_roles=['admin', 'is_applicant'])
+def applicant_add_phone(request):
+    applicant = request.user.applicantprofilemodel
+    form = ApplicantAddPhoneNumberForm(instance=applicant)
+    if request.method == 'POST':
+        form = ApplicantAddPhoneNumberForm(request.POST, instance=applicant)
+        if form.is_valid():
+            form.save()
+            return redirect('applicant-profile', request.user.id)
+        else:
+            return redirect('applicant-add-phone')
+
+    name = extractFirstName(request.user.name)
+
+    context = {
+        'name': name,
+        'form': form,
+    }
+    return render(request, 'user/applicant/applicant-add-phone.html', context)
 
 
 @login_required(login_url='login')
