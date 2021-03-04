@@ -113,7 +113,7 @@
                 {% if user.applicantprofilemodel.phone %}
                 {{user.applicantprofilemodel.phone}} ·
                 {% else %}
-                <a href="{% url 'applicant-edit-profile' %}">+ Add Phone Number ·</a>
+                <a href="{% url 'applicant-add-phone' %}">+ Add Phone Number ·</a>
                 {% endif %}
 
                 {% if user.email %}
@@ -145,10 +145,10 @@
                 
 
                 {% if user.applicantprofilemodel.bio %}
-                <h3>Objective</h3>
+                <h3>About Me</h3>
                 {{user.applicantprofilemodel.bio|safe}}
                 {% else %}
-                <a href="{% url 'applicant-edit-profile' %}">+ Add Objective</a>
+                <a href="{% url 'applicant-edit-profile' %}">+ Add Bio</a>
                 {% endif %}
 
             </div>
