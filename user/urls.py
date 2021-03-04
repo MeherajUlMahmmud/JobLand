@@ -27,6 +27,7 @@ urlpatterns = [
     path('pdf', pdf_view, name='pdf-view'),
     path('applicant/applicant-edit-profile', applicant_edit_profile, name='applicant-edit-profile'),
     path('applicant/applicant-add-social', applicant_add_social, name='applicant-add-social'),
+    path('applicant/applicant-add-phone', applicant_add_phone, name='applicant-add-phone'),
     path('applicant/applicant-add-resume', applicant_add_resume, name='applicant-add-resume'),
     path('company/company-edit-profile', company_edit_profile, name='company-edit-profile'),
 
