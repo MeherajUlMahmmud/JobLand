@@ -41,7 +41,7 @@ $ git clone https://github.com/superior-prog/jobLand.git
 
 ### 2. Create an virtual environment
 ```
-$ py -m venv ENV
+$ py -m venv venv
 ```
 ### 3. Start the environment
 ```
