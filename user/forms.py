@@ -72,6 +72,12 @@ class ApplicantEditProfileForm(ModelForm):
         exclude = ['user']
 
 
+class ApplicantAddPhoneNumberForm(ModelForm):
+    class Meta:
+        model = ApplicantProfileModel
+        fields = ('phone',)
+
+
 class ApplicantAddSocialForm(ModelForm):
     class Meta:
         model = ApplicantProfileModel
