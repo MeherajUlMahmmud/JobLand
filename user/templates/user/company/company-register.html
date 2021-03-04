@@ -56,8 +56,8 @@
                     {% csrf_token %}
                     <div class="row form-group">
                         <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="text-black">{{form.email.label}}</label>
-                            {{form.email|add_class:"form-control"}}
+                            <label class="text-black">{{ form.email.label }}</label>
+                            {{ form.email|add_class:"form-control"|attr:"autofocus" }}
                             <p>{{ form.email.help_text|safe }}</p>
 
                         </div>
