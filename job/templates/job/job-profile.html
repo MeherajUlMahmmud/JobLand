@@ -177,21 +177,21 @@
                     <h3 class="h5 d-flex align-items-center mb-4 text-primary">
                         <span class="icon-rocket mr-3"></span>Responsibilities
                     </h3>
-                    <p>{{job.responsibilities|safe}}</p>
+                    <p>{{ job.responsibilities|safe }}</p>
                 </div>
 
                 <div class="mb-5">
                     <h3 class="h5 d-flex align-items-center mb-4 text-primary">
                         <span class="icon-book mr-3"></span>Requirements
                     </h3>
-                    <p>{{job.requirements|safe}}</p>
+                    <p>{{ job.requirements|safe }}</p>
                 </div>
 
                 <div class="mb-5">
                     <h3 class="h5 d-flex align-items-center mb-4 text-primary">
                         <span class="icon-turned_in mr-3"></span>Additional Notes
                     </h3>
-                    <p>{{job.additional_note|safe}}</p>
+                    <p>{{ job.additional_note|safe }}</p>
                 </div>
             </div>
 
@@ -199,14 +199,15 @@
                 <div class="bg-light p-3 border rounded mb-4">
                     <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">Job Summary</h3>
                     <ul class="list-unstyled pl-3 mb-0">
-                        <li class="mb-2"><strong class="text-black">Published on:</strong> {{job.date_posted}}</li>
-                        <li class="mb-2"><strong class="text-black">Vacancy:</strong> {{job.vacancy}}</li>
-                        <li class="mb-2"><strong class="text-black">Employment Status:</strong> {{job.job_type}}</li>
-                        <li class="mb-2"><strong class="text-black">Job Location:</strong> {{job.location}}</li>
-                        <li class="mb-2"><strong class="text-black">Experience Required (in month):</strong> {{job.experience}}</li>
-                        <li class="mb-2"><strong class="text-black">Salary:</strong> {{job.salary}}</li>
-                        <li class="mb-2"><strong class="text-black">Gender:</strong> {{job.gender}}</li>
-                        <li class="mb-2"><strong class="text-black">Application Deadline:</strong> {{job.deadline}}
+                        <li class="mb-2"><strong class="text-black">Published on:</strong> {{ job.date_posted }}</li>
+                        <li class="mb-2"><strong class="text-black">Vacancy:</strong> {{ job.vacancy }}</li>
+                        <li class="mb-2"><strong class="text-black">Employment Status:</strong> {{ job.job_type }}</li>
+                        <li class="mb-2"><strong class="text-black">Job Location:</strong> {{ job.location }}</li>
+                        <li class="mb-2"><strong class="text-black">Experience Required (in month):</strong> {{
+                            job.experience }}</li>
+                        <li class="mb-2"><strong class="text-black">Salary:</strong> {{ job.salary }}</li>
+                        <li class="mb-2"><strong class="text-black">Gender:</strong> {{ job.gender }}</li>
+                        <li class="mb-2"><strong class="text-black">Application Deadline:</strong> {{ job.deadline }}
                         </li>
                     </ul>
                 </div>
