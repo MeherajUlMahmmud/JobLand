@@ -64,7 +64,7 @@
                 <form method="POST" action="" enctype="multipart/form-data" class="p-4 p-md-5 border rounded">
                     <h3 class="text-black mb-5 border-bottom pb-2">Job Form</h3>
                     {% csrf_token %}
-                    {{form.media}}
+                    {{ form.media }}
 
                     {{form.is_active.as_hidden}}
 
