@@ -47,7 +47,7 @@ $ py -m venv venv
 ```
 $ .\venv\Scripts\activate
 ```
-### 4. Install this command in your environment
+### 4. Run this command in your environment
 ```
 $ pip install -r requirements.txt
 ```
