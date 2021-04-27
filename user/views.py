@@ -2,9 +2,10 @@ from django.contrib import messages
 from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
-from django.core.mail import send_mail
+from django.core.mail import send_mail, BadHeaderError
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.html import strip_tags
 from job.models import *
@@ -1066,19 +1067,17 @@ def contact(request):
     if request.method == 'POST':
         fname = request.POST['fname']
         lname = request.POST['lname']
-        email_add = request.POST['email']
+        from_email = request.POST['email']
         subject = request.POST['subject']
         message = request.POST['message']
 
-        send_mail(
-            subject + " from " + fname + " " + lname + " " + email_add,
-            message,
-            email_add,
-            ['officialjobland777@gmail.com', ],
-            # the mail address that the email will be sent to
-        )
-        messages.success(request, "Feedback sent successfully.")
+        if subject and message and from_email:
+            try:
+                send_mail(subject, message, from_email, ['meherajmahmmd@gmail.com'])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
 
-        return render(request, 'user/contact.html', {})
+            messages.success(request, "Feedback sent successfully.")
+            return HttpResponseRedirect('contact')
 
     return render(request, 'user/contact.html', {})
