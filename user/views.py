@@ -416,7 +416,8 @@ def pdf_view(request):
     languages = LanguageModel.objects.filter(user=user)
     references = ReferenceModel.objects.filter(user=user)
     awards = AwardModel.objects.filter(user=user)
-    if(applicant.image):
+
+    if applicant.image:
         image_link = "http://127.0.0.1:8000" + applicant.image.url
     else:
         image_link=None
