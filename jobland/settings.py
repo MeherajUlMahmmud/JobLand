@@ -1,3 +1,4 @@
+import django_heroku
 import os
 from pathlib import Path
 
@@ -53,6 +54,8 @@ CKEDITOR_CONFIGS = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -60,6 +63,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'jobland.urls'
@@ -146,3 +151,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 # EMAIL_HOST_USER = 'officialjobland777@gmail.com'
 # EMAIL_HOST_PASSWORD = "asdfASDF123"
 # EMAIL_USE_TLS = True  # for security
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
