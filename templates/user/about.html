@@ -28,17 +28,18 @@
                     {% if user.is_authenticated %}
 
                     {% if user.is_applicant %}
-                    <a href="{% url 'applicant-feed' %}" class="btn btn-primary border-width-2 d-none d-lg-inline-block">
+                    <a href="{% url 'applicant-feed' %}"
+                        class="btn btn-primary border-width-2 d-none d-lg-inline-block">
                         <span class="mr-2 icon-person_outline"></span>Hi {{ name }}</a>
                     {% else %}
-                    <a href="{% url 'company-profile' user.id %}" class="btn btn-primary border-width-2 d-none d-lg-inline-block">
+                    <a href="{% url 'company-profile' user.id %}"
+                        class="btn btn-primary border-width-2 d-none d-lg-inline-block">
                         <span class="mr-2 icon-person_outline"></span>{{ user.name }}</a>
                     {% endif %}
                     <a href="{% url 'logout' %}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
                             class="mr-2 icon-lock_outline"></span>Log Out</a>
                     {% else %}
-                    <a href="{% url 'login' %}"
-                       class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
+                    <a href="{% url 'login' %}" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
                             class="mr-2 icon-lock_outline"></span>Log In</a>
                     {% endif %}
 
@@ -119,36 +120,40 @@
         <div class="row align-items-center block__69944">
 
             <div class="col-md-6">
-                <img src="{% static 'assets/images/sumonapic.jpg' %}"  alt="Image" class="img-fluid mb-4 rounded" >
+                <img src="{% static 'assets/images/sumonapic.jpg' %}" alt="Image" class="img-fluid mb-4 rounded">
             </div>
 
             <div class="col-md-6">
                 <h3>Sumona Yeasmin</h3>
                 <p class="text-muted">Student</p>
-                <p>Education: B.sc in Computer Science and Engineering (running),<br>
+                <p>Completed B.Sc. in Computer Science and Engineering<br>
                     East West University<br>
                     Email: 2018-2-60-062@gmail.com
 
                 </p>
                 <div class="social mt-4">
-                    <a href="https://www.facebook.com/sumona.sumu.581/" target="_blank"><span class="icon-facebook"></span></a>
+                    <a href="https://www.facebook.com/sumona.sumu.581/" target="_blank"><span
+                            class="icon-facebook"></span></a>
                     <a href="https://github.com/Sumona062" target="_blank"><span class="icon-github"></span></a>
-                    <a href="https://www.instagram.com/sumona_sumu/" target="_blank"><span class="icon-instagram"></span></a>
+                    <a href="https://www.instagram.com/sumona_sumu/" target="_blank"><span
+                            class="icon-instagram"></span></a>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <h3>Meheraj Ul Mahmmud</h3>
                 <p class="text-muted">Student</p>
-                <p>Education: B.sc in Computer Science and Engineering (running),<br>
+                <p>Completed B.Sc. in Computer Science and Engineering<br>
                     East West University<br>
                     Email: 2018-2-60-067@gmail.com
 
                 </p>
                 <div class="social mt-4">
-                    <a href="https://www.facebook.com/meherajulmahmmud/" target="_blank"><span class="icon-facebook"></span></a>
-                    <a href="https://github.com/superior-prog" target="_blank"><span class="icon-github"></span></a>
-                    <a href="https://www.instagram.com/meheraj_007/" target="_blank"><span class="icon-instagram"></span></a>
+                    <a href="https://www.facebook.com/meherajulmahmmud/" target="_blank"><span
+                            class="icon-facebook"></span></a>
+                    <a href="https://github.com/MeherajUlMahmmud" target="_blank"><span class="icon-github"></span></a>
+                    <a href="https://www.instagram.com/meheraj_007/" target="_blank"><span
+                            class="icon-instagram"></span></a>
                 </div>
             </div>
 
@@ -163,13 +168,14 @@
             <div class="col-md-6">
                 <h3>Nazia Afrin</h3>
                 <p class="text-muted">Student</p>
-                <p>Education: B.sc in Computer Science and Engineering (running),<br>
+                <p>Completed B.Sc. in Computer Science and Engineering<br>
                     East West University<br>
                     Email: 2018-2-60-023@gmail.com
 
                 </p>
                 <div class="social mt-4">
-                    <a href="https://www.facebook.com/nowshin021/" target="_blank"><span class="icon-facebook"></span></a>
+                    <a href="https://www.facebook.com/nowshin021/" target="_blank"><span
+                            class="icon-facebook"></span></a>
                     <a href="https://github.com/nowshin021" target="_blank"><span class="icon-github"></span></a>
                     <a href="#"><span class="icon-instagram" target="_blank"></span></a>
                 </div>
