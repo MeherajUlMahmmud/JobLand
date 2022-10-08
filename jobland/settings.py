@@ -2,11 +2,13 @@ import django_heroku
 import os
 from pathlib import Path
 
+from decouple import config
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'ix4hnvelil^q36!(bg#)_+q=vkf4yk)@bh64&0qc2z*zy5^kdz'
+SECRET_KEY = config('SECRET_KEY')
 
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -91,8 +93,12 @@ WSGI_APPLICATION = 'jobland.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'de5uindlu1b4pn',
+        'HOST': 'ec2-44-206-197-71.compute-1.amazonaws.com',
+        'PORT': 5432,
+        'USER': 'erawureyxaltdv',
+        'PASSWORD': '76c0a512c2f05d27b88e703d849806cf23435aaa04a2ad88ebb1a232f2186dd3'
     }
 }
 
