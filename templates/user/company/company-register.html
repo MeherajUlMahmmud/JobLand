@@ -20,8 +20,7 @@
 
             <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
                 <div class="ml-auto">
-                    <a class="btn btn-primary border-width-2 d-none d-lg-inline-block"
-                       href="{% url 'login' %}"><span
+                    <a class="btn btn-primary border-width-2 d-none d-lg-inline-block" href="{% url 'login' %}"><span
                             class="mr-2 icon-lock_outline"></span>Log In</a>
                 </div>
                 <a class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3" href="#"><span
@@ -50,7 +49,7 @@
 <section class="site-section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 mb-5">
+            <div class="col-lg-12 mb-5">
                 <h2 class="mb-4">Sign Up To JobLand</h2>
                 <form action="" class="p-4 border rounded" method="POST">
                     {% csrf_token %}
@@ -84,9 +83,10 @@
                     </div>
                     <div class="row form-group mb-4">
                         <div class="col-md-12 mb-3 mb-md-0">
-                            <input class="agree-term" id="agree-term" name="check" type="checkbox"/>
+                            <input class="agree-term" id="agree-term" name="check" type="checkbox" />
                             <label class="label-agree-term" for="agree-term">
-                                I agree to all statements in <a class="term-service" href="#">Terms of service</a></label>
+                                I agree to all statements in <a class="term-service" href="#">Terms of
+                                    service</a></label>
                         </div>
                     </div>
                     <div class="row form-group mb-4">
@@ -98,7 +98,7 @@
                     <div class="row form-group">
                         <div class="col-md-12">
                             <input class="btn px-4 btn-primary text-white" name="Create User" type="submit"
-                                   value="Sign Up">
+                                value="Sign Up">
                         </div>
                     </div>
 
